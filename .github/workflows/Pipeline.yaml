@@ -1,0 +1,21 @@
+name: Workflow
+
+on:
+  workflow_dispatch:
+    push:
+      branches:
+        - main
+
+
+jobs:
+   world:
+      name: Hello world job
+      runs-on: ubuntu-latest
+
+
+      steps:
+        - name: Hello world step
+          run: echo "Hello world!"
+
+        - name: Second step
+          run: echo "This is a second step!"
