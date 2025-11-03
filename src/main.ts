@@ -49,15 +49,28 @@ const renderTodos = () => {
   todos.forEach(todo => {
     const li = document.createElement('li');
     li.className = 'todo-item';
+
+    const isOverdue = todo.dueDate && new Date(todo.dueDate) < new Date() && !todo.completed;
+
     li.innerHTML = `
-      <span style="cursor: pointer; ${todo.completed ? 'text-decoration: line-through; opacity: 0.6;' : ''}" 
-            onclick="toggleTodo(${todo.id})">${todo.text}</span>
-      <button>Remove</button>`;
+      <span 
+        style="cursor: pointer; ${todo.completed ? 'text-decoration: line-through; opacity: 0.6;' : ''}"
+        onclick="toggleTodo(${todo.id})"
+      >
+        ${todo.text} ${todo.dueDate ? `(Due: ${todo.dueDate})` : ''}
+      </span>
+      <button>Remove</button>
+    `;
+
+    if (isOverdue) {
+      li.style.color = 'red';
+    }
 
     addRemoveButtonListener(li, todo.id);
     todoList.appendChild(li);
-  })
-}
+  });
+};
+
 
 // Make toggleTodo globally accessible
 (window as any).toggleTodo = toggleTodo;
