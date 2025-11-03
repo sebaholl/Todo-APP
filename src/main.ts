@@ -34,12 +34,13 @@ const toggleTodo = (id: number) => {
   renderTodos();
 }
 
-todoForm.addEventListener('submit', (event:Event) => {
+todoForm.addEventListener('submit', (event: Event) => {
   event.preventDefault();
   const text = todoInput.value.trim();
   if (text !== '') {
     addTodo(text);
     todoInput.value = '';
+    todoDate.value = '';
   }
 });
 
