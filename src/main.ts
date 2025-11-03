@@ -19,7 +19,7 @@ const addTodo = (text:string) => {
   const newTodo: Todo = {
     id: Date.now(),
     text: text,
-    completed: false
+    completed: false,
     dueDate: todoDate.value ? todoDate.value : undefined
   }
   todos.push(newTodo);
@@ -45,7 +45,7 @@ todoForm.addEventListener('submit', (event: Event) => {
 });
 
 const renderTodos = () => {
-  todoList.innerHTML = ''; 
+  todoList.innerHTML = '';
 
   todos.forEach(todo => {
     const li = document.createElement('li');
@@ -58,19 +58,21 @@ const renderTodos = () => {
         style="cursor: pointer; ${todo.completed ? 'text-decoration: line-through; opacity: 0.6;' : ''}"
         onclick="toggleTodo(${todo.id})"
       >
-        ${todo.text} ${todo.dueDate ? `(Due: ${todo.dueDate})` : ''}
+        ${todo.text}
+        ${todo.dueDate ? `<small>(Due: ${todo.dueDate})</small>` : ''}
       </span>
       <button>Remove</button>
     `;
 
     if (isOverdue) {
-      li.style.color = 'red';
+      li.classList.add('overdue');
     }
 
     addRemoveButtonListener(li, todo.id);
     todoList.appendChild(li);
   });
 };
+
 
 
 // Make toggleTodo globally accessible
