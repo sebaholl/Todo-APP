@@ -20,6 +20,7 @@ const addTodo = (text:string) => {
     id: Date.now(),
     text: text,
     completed: false
+    dueDate: todoDate.value ? todoDate.value : undefined
   }
   todos.push(newTodo);
   console.log("check if it works", todos);
