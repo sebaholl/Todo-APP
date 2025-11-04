@@ -78,12 +78,6 @@ const renderTodos = () => {
 
 renderTodos();
 
-const addRemoveButtonListener = (li: HTMLLIElement, id:number) => {
-  const addRemoveButtonListener = li.querySelector('button') as HTMLButtonElement;
-  addRemoveButtonListener?.addEventListener ('click', () => {
-    removeTodo(id) 
-  });
-}
 
 const removeTodo = (id: number) => {
   todos = todos.filter(todo => todo.id !== id);
