@@ -24,11 +24,11 @@ const addTodo = (text:string) => {
 }
 
 const toggleTodo = (id: number) => {
-  todos = todos.map(todo => 
+  todos = todos.map(todo =>
     todo.id === id ? { ...todo, completed: !todo.completed } : todo
   );
   renderTodos();
-}
+};
 
 todoForm.addEventListener('submit', (event:Event) => {
   event.preventDefault();
