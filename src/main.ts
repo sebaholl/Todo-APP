@@ -46,14 +46,20 @@ const renderTodos = () => {
     const li = document.createElement('li');
     li.className = 'todo-item';
     li.innerHTML = `
-      <span style="cursor: pointer; ${todo.completed ? 'text-decoration: line-through; opacity: 0.6;' : ''}" 
-            onclick="toggleTodo(${todo.id})">${todo.text}</span>
-      <button>Remove</button>`;
+      <span style="cursor: pointer; ${todo.completed ? 'text-decoration: line-through; opacity: 0.6;' : ''}">
+        ${todo.text}
+      </span>
+      <div class="todo-actions">
+        <button class="toggle-btn">${todo.completed ? 'Undo' : 'Complete'}</button>
+        <button class="remove-btn">Remove</button>
+      </div>
+    `;
 
     addRemoveButtonListener(li, todo.id);
     todoList.appendChild(li);
-  })
-}
+  });
+};
+
 
 // Make toggleTodo globally accessible
 (window as any).toggleTodo = toggleTodo;
