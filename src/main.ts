@@ -12,6 +12,7 @@ const todoInput = document.getElementById('todo-input') as HTMLInputElement;
 const todoForm = document.querySelector('.todo-form') as HTMLFormElement; 
 const todoList = document.querySelector('.todo-list') as HTMLUListElement;
 
+
 const addTodo = (text:string) => {
   const newTodo: Todo = {
     id: Date.now(),
@@ -55,10 +56,21 @@ const renderTodos = () => {
       </div>
     `;
 
-    addRemoveButtonListener(li, todo.id);
+    const toggleButton = li.querySelector('.toggle-btn') as HTMLButtonElement;
+    const removeButton = li.querySelector('.remove-btn') as HTMLButtonElement;
+    const span = li.querySelector('span') as HTMLSpanElement;
+
+    // Toggle completion
+    toggleButton.addEventListener('click', () => toggleTodo(todo.id));
+    span.addEventListener('click', () => toggleTodo(todo.id));
+
+    // Remove todo
+    removeButton.addEventListener('click', () => removeTodo(todo.id));
+
     todoList.appendChild(li);
   });
 };
+
 
 
 // Make toggleTodo globally accessible
