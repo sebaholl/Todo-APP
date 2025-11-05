@@ -1,5 +1,5 @@
 import './style.css'
-// import { setupCounter } from './counter.ts'
+
 
 interface Todo {
   id: number;
@@ -15,24 +15,26 @@ const todoForm = document.querySelector('.todo-form') as HTMLFormElement;
 const todoList = document.querySelector('.todo-list') as HTMLUListElement;
 
 
-const addTodo = (text:string) => {
+const addTodo = (text: string) => {
   const newTodo: Todo = {
     id: Date.now(),
     text: text,
     completed: false,
     dueDate: todoDate.value ? todoDate.value : undefined
-  }
+  };
   todos.push(newTodo);
   console.log("check if it works", todos);
   renderTodos();
-}
+};
+
 
 const toggleTodo = (id: number) => {
-  todos = todos.map(todo => 
+  todos = todos.map(todo =>
     todo.id === id ? { ...todo, completed: !todo.completed } : todo
   );
   renderTodos();
-}
+};
+
 
 todoForm.addEventListener('submit', (event: Event) => {
   event.preventDefault();
@@ -44,6 +46,7 @@ todoForm.addEventListener('submit', (event: Event) => {
   }
 });
 
+
 const renderTodos = () => {
   todoList.innerHTML = '';
 
@@ -54,40 +57,45 @@ const renderTodos = () => {
     const isOverdue = todo.dueDate && new Date(todo.dueDate) < new Date() && !todo.completed;
 
     li.innerHTML = `
-      <span 
-        style="cursor: pointer; ${todo.completed ? 'text-decoration: line-through; opacity: 0.6;' : ''}"
-        onclick="toggleTodo(${todo.id})"
-      >
-        ${todo.text}
-        ${todo.dueDate ? `<small>(Due: ${todo.dueDate})</small>` : ''}
-      </span>
-      <button>Remove</button>
+      <div class="todo-content">
+        <span style="cursor: pointer; ${todo.completed ? 'text-decoration: line-through; opacity: 0.6;' : ''}">
+          ${todo.text} ${todo.dueDate ? `<small>(Due: ${todo.dueDate})</small>` : ''}
+        </span>
+      </div>
+      <div class="todo-actions">
+        <button class="toggle-btn">${todo.completed ? 'Undo' : 'Complete'}</button>
+        <button class="remove-btn">Remove</button>
+      </div>
     `;
 
     if (isOverdue) {
       li.classList.add('overdue');
     }
 
-    addRemoveButtonListener(li, todo.id);
+    const toggleButton = li.querySelector('.toggle-btn') as HTMLButtonElement;
+    const removeButton = li.querySelector('.remove-btn') as HTMLButtonElement;
+    const span = li.querySelector('span') as HTMLSpanElement;
+
+    toggleButton.addEventListener('click', () => toggleTodo(todo.id));
+    span.addEventListener('click', () => toggleTodo(todo.id));
+
+    removeButton.addEventListener('click', () => removeTodo(todo.id));
+
     todoList.appendChild(li);
   });
 };
 
 
 
-// Make toggleTodo globally accessible
+const removeTodo = (id: number) => {
+  todos = todos.filter(todo => todo.id !== id);
+  renderTodos();
+};
+
+
+
 (window as any).toggleTodo = toggleTodo;
 
 renderTodos();
 
-const addRemoveButtonListener = (li: HTMLLIElement, id:number) => {
-  const addRemoveButtonListener = li.querySelector('button') as HTMLButtonElement;
-  addRemoveButtonListener?.addEventListener ('click', () => {
-    removeTodo(id) 
-  });
-}
 
-const removeTodo = (id: number) => {
-  todos = todos.filter(todo => todo.id !== id);
-  renderTodos();
-}

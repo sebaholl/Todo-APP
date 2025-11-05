@@ -104,6 +104,51 @@ h1 {
   display: none;
 }
 
+
+/* TODO ACTION BUTTONS */
+
+.todo-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+
+.todo-item .toggle-btn {
+  border: none;
+  background: #0d6efd; 
+  color: #fff;
+  border-radius: 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.todo-item .toggle-btn:hover {
+  background: #0b5ed7;
+  transform: translateY(-1px);
+}
+
+/* Remove button */
+.todo-item .remove-btn {
+  border: none;
+  background: #dc3545;
+  color: #fff;
+  border-radius: 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.todo-item .remove-btn:hover {
+  background: #bb2d3b;
+  transform: translateY(-1px);
+}
 /* ==== TODO LIST ==== */
 .todo-list {
   list-style: none;
