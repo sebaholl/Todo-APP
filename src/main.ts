@@ -8,6 +8,8 @@ interface Todo {
   dueDate?: string; 
 }
 
+let currentFilter: 'all' | 'active' | 'completed' = 'all';
+
 let todos: Todo[] = [];
 const todoInput = document.getElementById('todo-input') as HTMLInputElement; 
 const todoDate = document.getElementById('todo-date') as HTMLInputElement;
@@ -50,7 +52,16 @@ todoForm.addEventListener('submit', (event: Event) => {
 const renderTodos = () => {
   todoList.innerHTML = '';
 
-  todos.forEach(todo => {
+  let filteredTodos = todos;
+
+  if (currentFilter === 'active') {
+    filteredTodos = todos.filter(todo => !todo.completed);
+  } else if (currentFilter === 'completed') {
+    filteredTodos = todos.filter(todo => todo.completed);
+  }
+
+
+  filteredTodos.forEach(todo => {
     const li = document.createElement('li');
     li.className = 'todo-item';
 
