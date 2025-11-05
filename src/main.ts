@@ -5,10 +5,12 @@ interface Todo {
   id: number;
   text: string;
   completed: boolean;
+  dueDate?: string; 
 }
 
 let todos: Todo[] = [];
 const todoInput = document.getElementById('todo-input') as HTMLInputElement; 
+const todoDate = document.getElementById('todo-date') as HTMLInputElement;
 const todoForm = document.querySelector('.todo-form') as HTMLFormElement; 
 const todoList = document.querySelector('.todo-list') as HTMLUListElement;
 
@@ -17,7 +19,8 @@ const addTodo = (text:string) => {
   const newTodo: Todo = {
     id: Date.now(),
     text: text,
-    completed: false
+    completed: false,
+    dueDate: todoDate.value ? todoDate.value : undefined
   }
   todos.push(newTodo);
   console.log("check if it works", todos);
@@ -31,21 +34,25 @@ const toggleTodo = (id: number) => {
   renderTodos();
 };
 
-todoForm.addEventListener('submit', (event:Event) => {
+todoForm.addEventListener('submit', (event: Event) => {
   event.preventDefault();
   const text = todoInput.value.trim();
   if (text !== '') {
     addTodo(text);
     todoInput.value = '';
+    todoDate.value = '';
   }
 });
 
 const renderTodos = () => {
-  todoList.innerHTML = ''; 
+  todoList.innerHTML = '';
 
   todos.forEach(todo => {
     const li = document.createElement('li');
     li.className = 'todo-item';
+
+    const isOverdue = todo.dueDate && new Date(todo.dueDate) < new Date() && !todo.completed;
+
     li.innerHTML = `
       <span style="cursor: pointer; ${todo.completed ? 'text-decoration: line-through; opacity: 0.6;' : ''}">
         ${todo.text}
@@ -66,6 +73,19 @@ const renderTodos = () => {
 
     // Remove todo
     removeButton.addEventListener('click', () => removeTodo(todo.id));
+      <span 
+        style="cursor: pointer; ${todo.completed ? 'text-decoration: line-through; opacity: 0.6;' : ''}"
+        onclick="toggleTodo(${todo.id})"
+      >
+        ${todo.text}
+        ${todo.dueDate ? `<small>(Due: ${todo.dueDate})</small>` : ''}
+      </span>
+      <button>Remove</button>
+    `;
+
+    if (isOverdue) {
+      li.classList.add('overdue');
+    }
 
     todoList.appendChild(li);
   });
@@ -83,3 +103,4 @@ const removeTodo = (id: number) => {
   todos = todos.filter(todo => todo.id !== id);
   renderTodos();
 }
+

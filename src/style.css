@@ -15,11 +15,12 @@
   --body-background-color: #f4f4f4;
   --container-background-color: #fff;
   --container-padding: 20px;
-  --container-border-radius: 5px;
-  --container-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  --container-width: 300px;
+  --container-border-radius: 8px;
+  --container-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  --container-width: 380px;
 }
 
+/* ==== LAYOUT ==== */
 body {
   font-family: var(--font-family);
   background-color: var(--body-background-color);
@@ -36,55 +37,64 @@ body {
   padding: var(--container-padding);
   border-radius: var(--container-border-radius);
   box-shadow: var(--container-box-shadow);
-  width: var(--container-width);
+  width: 100%;
+  max-width: var(--container-width);
 }
 
-
+/* ==== HEADER ==== */
 h1 {
   text-align: center;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #222;
 }
+
+/* ==== FORM ==== */
 .todo-form {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap; /* makes it responsive */
 }
-.todo-form input {
+
+.todo-form input[type="text"],
+.todo-form input[type="date"] {
   flex: 1;
+  min-width: 0;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 6px;
+  font-size: 0.95em;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
+
+.todo-form input:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 4px rgba(40, 167, 69, 0.4);
+  outline: none;
+}
+
 .todo-form button {
-  padding: 10px;
+  padding: 10px 16px;
   border: none;
   background: #28a745;
   color: #fff;
-  border-radius: 3px;
+  border-radius: 6px;
   cursor: pointer;
-}
-.todo-list {
-  list-style: none;
-  padding: 0;
-}
-.todo-item {
-  background: #f9f9f9;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.todo-item button {
-  border: none;
-  background: #dc3545;
-  color: #fff;
-  border-radius: 3px;
-  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.1s;
 }
 
+.todo-form button:hover {
+  background: #218838;
+  transform: translateY(-1px);
+}
 
+/* ==== ERROR HANDLING ==== */
 .input-error {
   border: 2px solid red;
-  background-color: #ffe6e6; /* Optional: Light red background to indicate error */
+  background-color: #ffe6e6;
 }
 
 #error-message {
@@ -139,3 +149,110 @@ h1 {
   background: #bb2d3b;
   transform: translateY(-1px);
 }
+/* ==== TODO LIST ==== */
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-item {
+  background: #f9f9f9;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.todo-item:hover {
+  background-color: #f2f7ff;
+  transform: scale(1.01);
+}
+
+.todo-item span {
+  flex: 1;
+  color: #333;
+  font-size: 0.95em;
+  word-break: break-word;
+}
+
+/* Remove button */
+.todo-item button {
+  border: none;
+  background: #dc3545;
+  color: #fff;
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.todo-item button:hover {
+  background-color: #c82333;
+}
+
+/* ==== DUE DATE FEATURE ==== */
+#todo-date {
+  cursor: pointer;
+}
+
+#todo-date:hover {
+  border-color: #28a745;
+}
+
+#todo-date:focus {
+  outline: none;
+  border-color: #28a745;
+  box-shadow: 0 0 3px rgba(40, 167, 69, 0.4);
+}
+
+/* === MAKE DUE DATE LOOK DISTINCT === */
+.todo-item small {
+  margin-left: 10px;            /* space between todo and date */
+  font-size: 0.85em;            /* smaller text */
+  color: #555;                  /* softer gray */
+  background-color: #e9eef7;    /* subtle gray-blue tag */
+  padding: 2px 8px;             /* tag-like shape */
+  border-radius: 12px;          /* pill shape */
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  display: inline-block;
+}
+
+/* Overdue tasks */
+.todo-item.overdue {
+  color: red;
+  font-weight: 600;
+  background-color: #ffe6e6;
+  border-left: 4px solid #dc3545;
+}
+
+/* Overdue date style */
+.todo-item.overdue small {
+  background-color: #ffe6e6;
+  color: #b20000;
+  font-weight: 600;
+}
+
+/* Small clock icon before date */
+.todo-item small::before {
+  content: "📅 ";
+  font-size: 0.9em;
+}
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 400px) {
+  .todo-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .todo-form button {
+    width: 100%;
+  }
+}
+
+
