@@ -110,3 +110,22 @@ const removeTodo = (id: number) => {
 renderTodos();
 
 
+
+document.getElementById('show-all')?.addEventListener('click', () => {
+  currentFilter = 'all';
+  updateActiveFilterButton('show-all');
+  renderTodos();
+});
+
+document.getElementById('show-active')?.addEventListener('click', () => {
+  currentFilter = 'active';
+  updateActiveFilterButton('show-active');
+  renderTodos();
+});
+
+document.getElementById('show-completed')?.addEventListener('click', () => {
+  currentFilter = 'completed';
+  updateActiveFilterButton('show-completed');
+  renderTodos();
+});
+
