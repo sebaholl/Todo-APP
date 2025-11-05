@@ -110,6 +110,18 @@ const removeTodo = (id: number) => {
 renderTodos();
 
 
+const updateActiveFilterButton = (activeButtonId: string) => {
+  const filterButtons = document.querySelectorAll('.filter-buttons button');
+  filterButtons.forEach(btn => {
+    if (btn.id === activeButtonId) {
+      btn.classList.add('active-filter');
+    } else {
+      btn.classList.remove('active-filter');
+    }
+  });
+};
+
+
 
 document.getElementById('show-all')?.addEventListener('click', () => {
   currentFilter = 'all';
