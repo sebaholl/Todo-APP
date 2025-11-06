@@ -31,20 +31,16 @@ test("Add new todo", async t => {
     .expect(Selector('.todo-list li').withText('Vacuum the house').exists).ok()
     .expect(Selector('.todo-list li').count).gte(2)
 
-    // click the first todo's Complete/Undo button (select by the todo text)
     .click(Selector('.todo-list li').withText('Vacuum the house').find('.toggle-btn'))
 
-    // assert the first todo is visually marked completed (inline style contains line-through)
     .expect(Selector('.todo-list li').withText('Vacuum the house').find('span').getAttribute('style')).contains('line-through')
 
 
-  // switch to "Completed" filter and verify the completed todo appears there
+  
     .click(Selector('#show-completed'))
     .expect(Selector('.todo-list li').withText('Vacuum the house').exists).ok()
-    // the not-completed todo should not be in the completed list
     .expect(Selector('.todo-list li').withText('Clean the dishes').exists).notOk()
 
-    // switch to "Active" filter and verify the completed todo is not present and the other is
     .click(Selector('#show-active'))
     .expect(Selector('.todo-list li').withText('Vacuum the house').exists).notOk()
     .expect(Selector('.todo-list li').withText('Clean the dishes').exists).ok()
