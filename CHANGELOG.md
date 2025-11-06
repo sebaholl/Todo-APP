@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.0](https://github.com/sebaholl/Todo-APP/compare/v1.0.0...v1.1.0) (2025-11-06)
+
+
+### Features
+
+* add filter state and logic to render only active or completed todos ([a363c33](https://github.com/sebaholl/Todo-APP/commit/a363c33845c48c48ea35f20e867309883f90a7c4))
+* add helper function to visually highlight the active filter button ([b5db5d3](https://github.com/sebaholl/Todo-APP/commit/b5db5d3c5aee546cf44275745e679762bbe6f656))
+* add HTML structure for todo filter buttons ([2a6759c](https://github.com/sebaholl/Todo-APP/commit/2a6759c84dce1fa5e834d2ad795b9cae03131a9d))
+* implement filter button event listeners to switch between todo views ([e7852db](https://github.com/sebaholl/Todo-APP/commit/e7852dbe1ef3f36ba74b163f548dba1d1e6950dc))
+
+
+### Bug Fixes
+
+* **main:** restore dueDate handling and wire up toggle/remove handlers ([9a753ab](https://github.com/sebaholl/Todo-APP/commit/9a753abf9ee765c46d0073d4dda603f166c5229a))
+
 ## 1.0.0 (2025-11-03)
 
 
